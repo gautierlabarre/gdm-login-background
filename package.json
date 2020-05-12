@@ -1,5 +1,6 @@
 {
-  "name": "svelte-app",
+  "name": "gdm-login-background",
+  "description": "your app description",
   "version": "1.0.0",
   "main": "./src/electron.js",
   "scripts": {
@@ -9,13 +10,16 @@
     "electron": "run-s build pure-electron",
     "pure-electron": "electron .",
     "electron-dev": "run-p dev pure-electron-dev",
-    "pure-electron-dev": "NODE_ENV=development electron ."
+    "pure-electron-dev": "NODE_ENV=development electron .",
+    "generate-app": "run-s build build-linux",
+    "build-linux": "electron-builder --dir --linux appimage --config electron-builder.yml"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "11.0.2",
     "@rollup/plugin-node-resolve": "^7.0.0",
     "chokidar": "^3.4.0",
     "electron": "^8.2.5",
+    "electron-builder": "^22.6.0",
     "npm-run-all": "^4.1.5",
     "rollup": "^1.20.0",
     "rollup-plugin-livereload": "^1.0.0",

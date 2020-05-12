@@ -1,0 +1,12 @@
+appId: "my.app.id"
+
+# Package app code into a asar archive. Set to false to debug issues.
+asar: true
+
+linux:
+  icon: public/icons
+  category: Utility
+  executableName: "gdm-login-background"
+  target:
+    - AppImage
+    - deb

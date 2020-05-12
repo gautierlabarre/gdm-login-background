@@ -15,12 +15,16 @@ function createWindow() {
     const mode = process.env.NODE_ENV;
     mainWindow = new BrowserWindow({
         width: 900,
+        icon: path.join(__dirname, '../public/icon.png'),
         height: 680,
+        autoHideMenuBar: true,
         webPreferences: {
             nodeIntegration: true,
             // preload: path.join(__dirname, 'preload.js')
         }
     });
+
+    console.log(__dirname)
 
     mainWindow.loadURL(`file://${path.join(__dirname, '../public/index.html')}`);
     mainWindow.on('closed', () => {
