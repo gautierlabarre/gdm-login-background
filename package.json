@@ -24,5 +24,7 @@
     "sirv-cli": "^0.4.5",
     "svelte": "^3.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "sudo-prompt": "^9.2.1"
+  }
 }
