@@ -24,7 +24,6 @@
     let selectedImage = '';
     let backgroundList = [];
     let confirmRestart = false;
-    // const script = __dirname + '/test.sh';
     const script = __dirname + '/change-gdm-background.sh';
 
     const appFolderName = '.gdm-background';
@@ -183,17 +182,17 @@
                              height="200" alt="test">
                         <div class="card-body">
                             {#if !checkSelected(image)}
-                                <a href="#" class="clickable pull-left" on:click={executeBackgroundChange(image)}
+                                <b class="clickable text-primary pull-left" on:click={executeBackgroundChange(image)}
                                    data-toggle="tooltip" data-placement="bottom"
                                    title="Supprimer">
                                     <Icon class="clickable" icon="{checkIcon}"/>
-                                </a>
+                                </b>
                             {/if}
-                            <a href="#" class="clickable pull-right" on:click={deleteImage(image)} data-toggle="tooltip"
+                            <b class="text-danger clickable pull-right" on:click={deleteImage(image)} data-toggle="tooltip"
                                data-placement="bottom"
                                title="Supprimer">
                                 <Icon class="clickable" icon="{trashIcon}"/>
-                            </a>
+                            </b>
                         </div>
                     </div>
                 </div>
@@ -225,9 +224,9 @@
 
     div :global(.selectedImage) {
         position: absolute !important;
-        left: 50%;
-        top: 90px;
-        font-size: 14px !important;
+        left: 45%;
+        top: 75px;
+        font-size: 50px !important;
     }
 
     .clickable {
