@@ -23,6 +23,12 @@ if [ ! $(dpkg -s libglib2.0-dev-bin | grep Status | cut -d ' ' -f 4) \
     fi
 fi
 
+test () {
+echo 'yeah'
+}
+
+[ "$1" == "--restore" ] && test
+
 echo "tout est bon"
 
 echo $1

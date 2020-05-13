@@ -14,9 +14,10 @@ if (process.env.NODE_ENV === 'development') {
 function createWindow() {
     const mode = process.env.NODE_ENV;
     mainWindow = new BrowserWindow({
-        width: 900,
+        width: 1024,
         icon: path.join(__dirname, '../public/icon.png'),
-        height: 680,
+        height: 800,
+        resizable: false,
         autoHideMenuBar: true,
         webPreferences: {
             nodeIntegration: true,
