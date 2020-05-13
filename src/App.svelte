@@ -18,6 +18,7 @@
 
     let visible = true;
     let visibleAlert = false;
+    let alertDependencies = false;
     let trashIcon = faTrash;
     let checkCircleIcon = faCheckCircle;
     let checkIcon = faCheck;
@@ -30,11 +31,38 @@
     const appFolder = '/' + appFolderName + '/';
 
     onMount(async () => {
-
         checkFolderExist();
         checkScriptExist();
+        checkDependencies();
         getBackgroundList();
     });
+
+    function checkDependencies() {
+        alertDependencies = false;
+        exec("dpkg -s libglib2.0-dev-bin | grep Status | cut -d ' ' -f 4", (error, stdout, stderr) => {
+            if (error) {
+                console.log(error.stack);
+                console.log('Error code: ' + error.code);
+                console.log('Signal received: ' + error.signal);
+            }
+            if(stdout.trim() !== "installed") {
+                alertDependencies = true;
+            }
+        });
+    }
+
+    function installDependencies() {
+        const options = { // Can't get it to work i think
+            name: 'GDM Login background',
+            icns: '/Applications/Electron.app/Contents/Resources/Electron.icns', // (optional)
+        };
+
+        sudo.exec('apt install libglib2.0-dev-bin', options, (error, stdout, stderr) => {
+            if (error) throw error;
+            console.log('stdout: ' + stdout);
+            checkDependencies()
+        });
+    }
 
     function checkFolderExist() {
         if (!fs.existsSync(home + appFolder)) {
@@ -140,6 +168,12 @@
 </script>
 
 <main>
+    <Alert class="text-center" color="danger" isOpen={alertDependencies} >
+        This application might not work if you do not install "<b>libglib2.0-dev-bin</b>".
+        <br><br>
+        <button class="btn btn-success" on:click={installDependencies}>Install libglib2.0-dev-bin</button>
+    </Alert>
+
     <Alert color="danger" isOpen={visibleAlert} toggle={() => (visibleAlert = false)}>
         There was an error. The backgroud has not been changed.
     </Alert>
@@ -165,7 +199,7 @@
 
         <div class="row">
             <div class="col">
-                <button class="btn btn-danger pull-right" on:click={reset}>Reset</button>
+                <button class="btn btn-outline-danger pull-right" on:click={reset}>Reset</button>
             </div>
         </div>
         <Dragdrop on:refresh={getBackgroundList}/>
