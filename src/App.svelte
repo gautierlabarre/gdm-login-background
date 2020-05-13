@@ -14,106 +14,147 @@
     import {faCheckCircle} from '@fortawesome/free-solid-svg-icons/faCheckCircle'
     import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck'
     import Dragdrop from './dragdrop.svelte';
-    import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from 'sveltestrap';
+    import {Button, Alert, Modal, ModalBody, ModalFooter, ModalHeader} from 'sveltestrap';
 
+    let visible = true;
+    let visibleAlert = false;
     let trashIcon = faTrash;
     let checkCircleIcon = faCheckCircle;
     let checkIcon = faCheck;
     let selectedImage = '';
     let backgroundList = [];
     let confirmRestart = false;
+    // const script = __dirname + '/test.sh';
+    const script = __dirname + '/change-gdm-background.sh';
+
     const appFolderName = '.gdm-background';
     const appFolder = '/' + appFolderName + '/';
 
     onMount(async () => {
-        // Create app folder if it does not exist
-        const createFolder = exec('cd ' + home + '&& mkdir -p ' + appFolderName, (error, stdout, stderr) => {
-            if (error) {
-                console.log(error.stack);
-            }
-        });
-        createFolder.on('exit', () => getBackgroundList());
+
+        checkFolderExist();
+        checkScriptExist();
+        getBackgroundList();
     });
 
+    function checkFolderExist() {
+        if (!fs.existsSync(home + appFolder)) {
+            fs.mkdirSync(home + appFolder);
+        }
+    }
+
+    function checkScriptExist() {
+        if (!fs.existsSync(home + appFolder + 'script.sh')) {
+            let scriptContent = fs.readFileSync(script);
+            fs.writeFile(home + appFolder + 'script.sh', scriptContent, function (err) {
+                if (err) throw err;
+            });
+        }
+    }
     function checkSelected(image) {
         if (fs.existsSync(home + appFolder + 'selectedBackground')) {
             let selectedB = fs.readFileSync(home + appFolder + 'selectedBackground', 'utf-8');
-
             if (image.trim() === selectedB.trim()) {
                 return true;
             }
         } else {
-            createSelectedBackgroundFile()
+            createSelectedBackgroundFile();
         }
     }
 
-    function restartGdm() {
-        console.log('on restart')
-    }
     function createSelectedBackgroundFile(content = '') {
         fs.writeFile(home + appFolder + 'selectedBackground', content, function (err) {
             if (err) throw err;
-            console.log('File is created successfully.');
+        });
+        let scriptContent = fs.readFileSync(script);
+        console.log(scriptContent);
+        fs.writeFile(home + appFolder + 'script.sh', scriptContent, function (err) {
+
         });
     }
 
     function getBackgroundList() {
         fs.readdir(home + appFolder, (err, items) => {
-            // console.log(items);
-            if (items !== 'selectedBackground')
+            if (items !== 'selectedBackground') {
                 backgroundList = items;
-            backgroundList = backgroundList.filter(array => {
-                console.log(array.trim() !== 'selectedBackground')
-                return (array.trim() !== 'selectedBackground')
-            })
+            }
+            backgroundList = backgroundList.filter(array => array.trim() !== 'selectedBackground');
+            backgroundList = backgroundList.filter(array => array.trim() !== 'script.sh');
         });
     }
 
     function deleteImage(image) {
         fs.unlinkSync(home + appFolder + image);
-        getBackgroundList()
+        getBackgroundList();
     }
 
     function executeBackgroundChange(image) {
-        let script = __dirname + '/test.sh';
+        visibleAlert = false;
         let imagePath = home + appFolder + image;
+        let givePermissions = 'chmod +x ' + home + appFolder + 'script.sh'
         const options = { // Can't get it to work i think
-            name: 'Electron',
+            name: 'GDM Login background',
             icns: '/Applications/Electron.app/Contents/Resources/Electron.icns', // (optional)
         };
 
-        sudo.exec(script + ' ' + imagePath, options, (error, stdout, stderr) => {
+        sudo.exec(givePermissions + ' && ' + home + appFolder + 'script.sh ' + imagePath, options, (error, stdout, stderr) => {
             if (error) throw error;
             console.log('stdout: ' + stdout);
 
-            createSelectedBackgroundFile(image.trim());
-            getBackgroundList();
-            confirmRestart = true;
+            if(stdout.trim() === 'GDM background sucessfuly changed.') {
+                createSelectedBackgroundFile(image.trim());
+                getBackgroundList();
+                confirmRestart = true;
+            } else {
+                visibleAlert = true;
+            }
         });
 
-        //TODO Sudo exec service gdm restart if successful
+    }
+
+    function restartGdm() {
+        const options = { // Can't get it to work i think
+            name: 'Gdm login background',
+        };
+
+        sudo.exec('service gdm restart', options, (error, stdout, stderr) => {
+            if (error) throw error;
+            console.log('stdout: ' + stdout);
+        });
     }
 
     function reset() {
-        //TODO Launch default script with --restore option
+        const options = { // Can't get it to work i think
+            name: 'Gdm login background',
+        };
+
+        sudo.exec(home + appFolder + 'script.sh  --restore', options, (error, stdout, stderr) => {
+            if (error) throw error;
+            console.log('stdout: ' + stdout);
+            confirmRestart = true;
+        });
     }
 
     const toggle = () => (confirmRestart = !confirmRestart);
 
+
 </script>
 
 <main>
+    <Alert color="danger" isOpen={visibleAlert} toggle={() => (visibleAlert = false)}>
+        There was an error. The backgroud has not been changed.
+    </Alert>
     <div>
         <Modal isOpen={confirmRestart} {toggle}>
-            <ModalHeader {toggle}>Fond changé</ModalHeader>
+            <ModalHeader {toggle}>GDM background changed</ModalHeader>
             <ModalBody>
-                Pour que le changement prenne effet il faut redémarrer le service GDM.
-                <br>
-                Cela vous déconnectera de votre session
+                For the change to take place, you have to restart GDM service.
+                Careful, you will lose all your work and your session will be closed.
+                If you click Cancel, the change will be visible after you restart your computer.
             </ModalBody>
             <ModalFooter>
                 <Button color="primary" on:click={restartGdm}>
-                    OK
+                    Restart GDM
                 </Button>
                 <Button color="secondary" on:click={toggle}>
                     Cancel
@@ -141,11 +182,13 @@
                         <img src="{home}{appFolder}{image}" width="100%"
                              height="200" alt="test">
                         <div class="card-body">
-                            <a href="#" class="clickable pull-left" on:click={executeBackgroundChange(image)}
-                               data-toggle="tooltip" data-placement="bottom"
-                               title="Supprimer">
-                                <Icon class="clickable" icon="{checkIcon}"/>
-                            </a>
+                            {#if !checkSelected(image)}
+                                <a href="#" class="clickable pull-left" on:click={executeBackgroundChange(image)}
+                                   data-toggle="tooltip" data-placement="bottom"
+                                   title="Supprimer">
+                                    <Icon class="clickable" icon="{checkIcon}"/>
+                                </a>
+                            {/if}
                             <a href="#" class="clickable pull-right" on:click={deleteImage(image)} data-toggle="tooltip"
                                data-placement="bottom"
                                title="Supprimer">
@@ -161,19 +204,6 @@
 
 
 <style>
-    main {
-        text-align: center;
-        padding: 1em;
-        max-width: 240px;
-        margin: 0 auto;
-    }
-
-    li {
-        list-style-type: none;
-    }
-
-
-
     .card {
         margin-bottom: 5px;
     }
@@ -200,21 +230,7 @@
         font-size: 14px !important;
     }
 
-
     .clickable {
         cursor: pointer !important;
-    }
-
-    h1 {
-        color: #ff3e00;
-        text-transform: uppercase;
-        font-size: 4em;
-        font-weight: 100;
-    }
-
-    @media (min-width: 640px) {
-        main {
-            max-width: none;
-        }
     }
 </style>

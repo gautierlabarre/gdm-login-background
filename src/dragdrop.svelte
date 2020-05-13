@@ -13,7 +13,7 @@
         paramName: 'file',
         maxFilesize: 100, // MB
         maxFiles: 1,
-        dictDefaultMessage: 'Drag an image here to upload, or click to select one (only works with JPG or PNG file)',
+        dictDefaultMessage: 'Drag an image here to upload, or click to select one (only works with JPG or PNG file). <br><br> If you have a dual screen, take a background with huge dimensions.',
         acceptedFiles: 'image/*',
         init: function () {
             this.on('dragover', () => {

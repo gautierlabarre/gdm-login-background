@@ -1,7 +1,7 @@
 appId: "my.app.id"
 
 # Package app code into a asar archive. Set to false to debug issues.
-asar: true
+asar: false
 
 linux:
   icon: public/icons
