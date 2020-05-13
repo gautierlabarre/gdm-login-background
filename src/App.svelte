@@ -14,9 +14,10 @@
     import {faCheckCircle} from '@fortawesome/free-solid-svg-icons/faCheckCircle'
     import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck'
     import Dragdrop from './dragdrop.svelte';
-    import {Button, Alert, Modal, ModalBody, ModalFooter, ModalHeader} from 'sveltestrap';
+    import {Button, Spinner, Alert, Modal, ModalBody, ModalFooter, ModalHeader} from 'sveltestrap';
 
     let visible = true;
+    let showLoading = false;
     let visibleAlert = false;
     let alertDependencies = false;
     let trashIcon = faTrash;
@@ -39,28 +40,30 @@
 
     function checkDependencies() {
         alertDependencies = false;
+
         exec("dpkg -s libglib2.0-dev-bin | grep Status | cut -d ' ' -f 4", (error, stdout, stderr) => {
             if (error) {
                 console.log(error.stack);
                 console.log('Error code: ' + error.code);
                 console.log('Signal received: ' + error.signal);
             }
-            if(stdout.trim() !== "installed") {
+            if (stdout.trim() !== "installed") {
                 alertDependencies = true;
             }
         });
     }
 
     function installDependencies() {
+        showLoading = true;
         const options = { // Can't get it to work i think
             name: 'GDM Login background',
             icns: '/Applications/Electron.app/Contents/Resources/Electron.icns', // (optional)
         };
 
-        sudo.exec('apt install libglib2.0-dev-bin', options, (error, stdout, stderr) => {
+        sudo.exec('apt install -y libglib2.0-dev-bin', options, (error, stdout, stderr) => {
             if (error) throw error;
-            console.log('stdout: ' + stdout);
-            checkDependencies()
+            console.log(stdout);
+            checkDependencies();
         });
     }
 
@@ -78,6 +81,7 @@
             });
         }
     }
+
     function checkSelected(image) {
         if (fs.existsSync(home + appFolder + 'selectedBackground')) {
             let selectedB = fs.readFileSync(home + appFolder + 'selectedBackground', 'utf-8');
@@ -128,7 +132,7 @@
             if (error) throw error;
             console.log('stdout: ' + stdout);
 
-            if(stdout.trim() === 'GDM background sucessfuly changed.') {
+            if (stdout.trim() === 'GDM background sucessfuly changed.') {
                 createSelectedBackgroundFile(image.trim());
                 getBackgroundList();
                 confirmRestart = true;
@@ -168,10 +172,18 @@
 </script>
 
 <main>
-    <Alert class="text-center" color="danger" isOpen={alertDependencies} >
+    <Alert class="text-center" color="danger" isOpen={alertDependencies}>
         This application might not work if you do not install "<b>libglib2.0-dev-bin</b>".
-        <br><br>
-        <button class="btn btn-success" on:click={installDependencies}>Install libglib2.0-dev-bin</button>
+        <br>
+        {#if showLoading}
+            <Spinner color="primary"/>
+        {/if}
+        <br>
+        {#if !showLoading}
+
+            <button class="btn btn-success" on:click={installDependencies}>Install libglib2.0-dev-bin</button>
+        {/if}
+
     </Alert>
 
     <Alert color="danger" isOpen={visibleAlert} toggle={() => (visibleAlert = false)}>
@@ -222,7 +234,8 @@
                                     <Icon class="clickable" icon="{checkIcon}"/>
                                 </b>
                             {/if}
-                            <b class="text-danger clickable pull-right" on:click={deleteImage(image)} data-toggle="tooltip"
+                            <b class="text-danger clickable pull-right" on:click={deleteImage(image)}
+                               data-toggle="tooltip"
                                data-placement="bottom"
                                title="Supprimer">
                                 <Icon class="clickable" icon="{trashIcon}"/>
