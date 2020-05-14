@@ -15,7 +15,7 @@
 
         exec("dpkg -s libglib2.0-dev-bin | grep Status | cut -d ' ' -f 4", (error, stdout) => {
             if (error) console.log(error.stack);
-            if (stdout.trim() === "installed") alertDependencies = true;
+            if (stdout.trim() !== "installed") alertDependencies = true;
         });
     }
 
