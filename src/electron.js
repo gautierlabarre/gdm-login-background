@@ -17,22 +17,18 @@ function createWindow() {
         width: 1024,
         icon: path.join(__dirname, '../public/icon.png'),
         height: 800,
+        // frame: false,
         resizable: false,
         autoHideMenuBar: true,
         webPreferences: {
             nodeIntegration: true,
-            // preload: path.join(__dirname, 'preload.js')
         }
     });
-
-    console.log(__dirname)
 
     mainWindow.loadURL(`file://${path.join(__dirname, '../public/index.html')}`);
     mainWindow.on('closed', () => {
         mainWindow = null;
     });
-
-
 }
 
 // This method will be called when Electron has finished

@@ -43,17 +43,12 @@
         const mvToProperFolder = 'cd ' + home + appFolder;
         const date = Date.now();
 
-        exec(mvToProperFolder + ' && cp ' + filename + ' ./' + date + ext, (error, stdout, stderr) => {
-            if (error) {
-                console.log(error.stack);
-                console.log('Error code: ' + error.code);
-                console.log('Signal received: ' + error.signal);
-            }
-            console.log(stdout);
-            console.log(stderr);
+        exec(mvToProperFolder + ' && cp ' + filename + ' ./' + date + ext, (error) => {
+            if (error) console.log(error.stack);
         });
 }
 </script>
+
 <div class="row">
     <div class="col">
         <form id="upload-widget" method="post" action="/" class="dropzone {dropzoneClass}">
