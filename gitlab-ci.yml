@@ -1,0 +1,10 @@
+build:
+  image: electronuserland/builder:wine
+  stage: build
+  script:
+    - npm install
+    - npm run generate-app
+  artifacts:
+    expire_in: 3 days
+    paths:
+      - ./dist/
