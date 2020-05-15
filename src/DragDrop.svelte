@@ -61,17 +61,20 @@
 
 <style>
     .dropzone {
-        border-radius: 10px;
-        border-style: dashed;
-        margin-bottom: 10px;
-        margin-top: 10px;
+        margin: 0 -15px 10px -25px;
+        border-left: 0;
+        border-right: 0;
+        border-top: 0;
+        border-style: dotted;
+        background: #dddddd;
     }
 
+
     .normal {
-        background: white;
+        background: #dddddd;
     }
 
     .dropOver {
-        background: #ccc;
+        background: #aaa;
     }
 </style>

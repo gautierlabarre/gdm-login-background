@@ -13,7 +13,11 @@
     import BackgroundCard from './BackgroundCard.svelte';
     import CheckDependencies from './CheckDependencies.svelte';
     import {Alert} from 'sveltestrap';
-
+    import Icon from 'fa-svelte';
+    import {faEraser} from '@fortawesome/free-solid-svg-icons/faEraser'
+    import {faInfo} from '@fortawesome/free-solid-svg-icons/faInfo'
+    const infoIcon = faInfo;
+    const eraserIcon = faEraser;
     let visible = true;
     let visibleAlert = false;
     let backgroundList = [];
@@ -91,22 +95,31 @@
 </script>
 
 <main>
-    <CheckDependencies />
+    <div id="left-menu">
+        <img src="../public/icon.png" alt="">
 
-    <Alert color="danger" isOpen={visibleAlert} toggle={() => (visibleAlert = false)}>
-        There was an error. The backgroud has not been changed.
-    </Alert>
+        <button class="btn btn-dark pull-right" on:click={reset} title="Reset default background">
+            <Icon class="clickable" icon="{eraserIcon}"/>
+        </button>
+
+        <button class="btn btn-dark pull-right" on:click={reset} title="Information">
+            <Icon class="clickable" icon="{infoIcon}"/>
+        </button>
+    </div>
+    <div id="content">
+
+
 
     <ConfirmRestart confirmRestart={confirmRestart}/>
 
     <div class="container-fluid">
-        <div class="row">
-            <div class="col">
-                <button class="btn btn-outline-danger pull-right" on:click={reset}>Reset</button>
-            </div>
-        </div>
 
         <Dragdrop on:refresh={getBackgroundList}/>
+        <CheckDependencies />
+
+        <Alert color="danger" isOpen={visibleAlert} toggle={() => (visibleAlert = false)}>
+            There was an error. The backgroud has not been changed.
+        </Alert>
 
         <div class="row">
             {#each backgroundList as image}
@@ -118,9 +131,37 @@
             {/each}
         </div>
     </div>
+    </div>
 </main>
 
 <style>
+    #left-menu {
+        display: inline-block;
+        float: left;
+        background: #1b1e21;
+        width: 80px;
+        height: 800px;
+    }
+
+    #left-menu img {
+        margin-top: 10px;
+        margin-bottom: 30px;
+    }
+    #left-menu  button {
+        margin-top: 20px;
+        float: left;
+        margin-left: 15px;
+        height: 50px;
+        width: 50px;
+    }
+
+    #content {
+        display: inline-block;
+        width: calc(100% - 90px);
+        margin-left: 10px;
+        float: left;
+    }
+
     .pull-right {
         float:right;
     }
