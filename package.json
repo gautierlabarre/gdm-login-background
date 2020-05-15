@@ -39,6 +39,7 @@
     "fs-extra": "^9.0.0",
     "jquery": "^3.5.1",
     "sudo-prompt": "^9.2.1",
+    "svelte-spa-router": "^2.1.0",
     "sveltestrap": "^3.3.3"
   }
 }
