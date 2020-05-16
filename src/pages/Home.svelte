@@ -6,10 +6,10 @@
     const home = app.getPath('home');
 
     import {onMount} from 'svelte';
-    import Dragdrop from '../DragDrop.svelte';
-    import ConfirmRestart from '../ConfirmRestart.svelte';
-    import BackgroundCard from '../BackgroundCard.svelte';
-    import CheckDependencies from '../CheckDependencies.svelte';
+    import Dragdrop from '../components/DragDrop.svelte';
+    import ConfirmRestart from '../components/ConfirmRestart.svelte';
+    import BackgroundCard from '../components/BackgroundCard.svelte';
+    import CheckDependencies from '../components/CheckDependencies.svelte';
     import {Alert} from 'sveltestrap';
 
     let visible = true;
@@ -74,16 +74,6 @@
             if (err) throw err;
         });
         checkScriptExist();
-    }
-
-    function reset() {
-        const options = {name: 'Gdm login background'};
-
-        sudo.exec(home + appFolder + 'script.sh  --restore', options, (error, stdout) => {
-            if (error) throw error;
-            console.log('stdout: ' + stdout);
-            confirmRestart = true;
-        });
     }
 </script>
 

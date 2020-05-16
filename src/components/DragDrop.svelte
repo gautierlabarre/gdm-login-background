@@ -1,6 +1,6 @@
 <script>
     import {createEventDispatcher} from 'svelte';
-    import Dropzone from "./updatedLibrairies/SVDropzone.svelte";
+    import Dropzone from "../updatedLibrairies/SVDropzone.svelte";
 
     const dispatch = createEventDispatcher();
     const {app} = require('electron').remote;
@@ -11,12 +11,21 @@
 
     function addedfile(file) {
         const filename = file.path.replace(/(\s+)/g, '\\$1');
-        let ext = '.jpg';
+        let ext
         if (file.type === 'image/png') {
             ext = '.png';
         }
 
-        addImageToAppFolder(filename, ext);
+        console.log(file.type)
+        if (file.type === 'image/jpg' || file.type === 'image/jpeg' ) {
+            ext = '.jpg';
+        }
+
+        if(ext === undefined) {
+            console.log('rejected file')
+        } else {
+            addImageToAppFolder(filename, ext);
+        }
     }
 
     function addImageToAppFolder(filename, ext) {
@@ -64,7 +73,7 @@
         background: #dddddd !important;
     }
 
-    div :global(.dropOver)  {
+    div :global(.dropOver) {
         background: #aaa !important;
     }
 </style>

@@ -1,11 +1,25 @@
 <script>
+    const sudo = require('sudo-prompt');
+    const {app} = require('electron').remote;
+    const appFolderName = '.gdm-background';
+    const appFolder = '/' + appFolderName + '/';
+    const home = app.getPath('home');
+    import ConfirmRestart from '../components/ConfirmRestart.svelte';
+
+    let confirmRestart = false;
     function reset() {
-        console.log('reset clicked');
+        const options = {name: 'Gdm login background'};
+
+        sudo.exec(home + appFolder + 'script.sh  --restore', options, (error, stdout) => {
+            if (error) throw error;
+            confirmRestart = true;
+        });
 
         // Launch sudo script
         // Empty file background.
     }
 </script>
+<ConfirmRestart confirmRestart={confirmRestart}/>
 
 <div class="jumbotron">
     <h1 class="display-4">Reset default login background</h1>
