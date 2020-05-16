@@ -58,7 +58,9 @@
         border-left: 0;
         border-right: 0;
         border-top: 0;
-        border-style: dotted;
+        border-radius: 0;
+        box-shadow: 1px 5px 5px #7f7f7f;
+        /*border-style: dotted;*/
         background: #dddddd !important;
     }
 

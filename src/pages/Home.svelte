@@ -101,6 +101,9 @@
     </Alert>
 
     <div class="row">
+        {#if backgroundList.length === 0 }
+            <p class="w100 m-20 text-center">Vous n'avez pas encore ajouté de fond d'écran.</p>
+        {/if}
         {#each backgroundList as image}
             <div class="col-md-4 col-sm-12">
                 <BackgroundCard
@@ -114,6 +117,9 @@
     </div>
 </div>
 <style>
+    .w100 {
+        width: 100%;
+    }
     #listItems {
         padding: 10px;
         height: 600px;

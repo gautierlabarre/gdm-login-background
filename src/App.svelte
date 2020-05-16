@@ -48,7 +48,7 @@
     }
 
     #left-menu img {
-        margin-top: 10px;
+        margin-top: 20px;
         margin-bottom: 30px;
     }
     #left-menu  button {
