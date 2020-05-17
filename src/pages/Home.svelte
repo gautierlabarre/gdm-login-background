@@ -87,12 +87,12 @@
     <CheckDependencies/>
 
     <Alert color="danger" isOpen={visibleAlert} toggle={() => (visibleAlert = false)}>
-        There was an error. The backgroud has not been changed.
+        There was an error. The background has not been changed.
     </Alert>
 
     <div class="row">
         {#if backgroundList.length === 0 }
-            <p class="w100 m-20 text-center">Vous n'avez pas encore ajouté de fond d'écran.</p>
+            <p class="w100 m-20 text-center">You have no background image yet.</p>
         {/if}
         {#each backgroundList as image}
             <div class="col-md-4 col-sm-12">
