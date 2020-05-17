@@ -1,5 +1,6 @@
 <script>
     const sudo = require('sudo-prompt');
+    const fs = require("fs");
     const {app} = require('electron').remote;
     const appFolderName = '.gdm-background';
     const appFolder = '/' + appFolderName + '/';
@@ -12,14 +13,14 @@
 
         sudo.exec(home + appFolder + 'script.sh  --restore', options, (error, stdout) => {
             if (error) throw error;
+            emptyBackgroundFile();
             confirmRestart = true;
         });
 
-        emptyBackgroundFile();
     }
 
     function emptyBackgroundFile() {
-        fs.writeFile(home + appFolder + 'selectedBackground', '', (err) => {
+        fs.writeFile(home + appFolder + 'selectedBackground', 'reset', (err) => {
             if (err) throw err;
         });
     }
