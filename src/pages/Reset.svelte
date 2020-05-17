@@ -11,12 +11,11 @@
     function reset() {
         const options = {name: 'Gdm login background'};
 
-        sudo.exec(home + appFolder + 'script.sh  --restore', options, (error, stdout) => {
+        sudo.exec(home + appFolder + 'script.sh  --restore', options, (error) => {
             if (error) throw error;
             emptyBackgroundFile();
             confirmRestart = true;
         });
-
     }
 
     function emptyBackgroundFile() {
