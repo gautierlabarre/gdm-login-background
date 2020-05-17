@@ -3,10 +3,8 @@
     import {faEraser} from '@fortawesome/free-solid-svg-icons/faEraser'
     import {faInfo} from '@fortawesome/free-solid-svg-icons/faInfo'
     import {faImage} from '@fortawesome/free-solid-svg-icons/faImage'
-
     import {link} from 'svelte-spa-router';
     import active from 'svelte-spa-router/active'
-
     import Home from './pages/Home.svelte'
     import About from './pages/About.svelte'
     import Reset from './pages/Reset.svelte'
@@ -19,7 +17,7 @@
         '/': Home,
         '/reset': Reset,
         '/about': About,
-    }
+    };
 </script>
 
 <main>
@@ -29,17 +27,20 @@
         <a href="/" use:link >
             <button class="btn btn-dark pull-right" use:active={{path: '/', className: 'btn-selected'}}  title="Reset default background"> <!--on:click={reset}-->
                 <Icon class="clickable" icon="{imageIcon}"/>
-            </button></a>
+            </button>
+        </a>
 
         <a href="/reset" use:link >
             <button class="btn btn-dark pull-right" use:active={{path: '/reset', className: 'btn-selected'}}  title="Reset default background"> <!--on:click={reset}-->
             <Icon class="clickable" icon="{eraserIcon}"/>
-        </button></a>
+        </button>
+        </a>
 
         <a href="/about" use:link>
             <button class="btn btn-dark pull-right" use:active={{path: '/about', className: 'btn-selected'}} title="Information">
             <Icon class="clickable" icon="{infoIcon}"/>
-        </button></a>
+        </button>
+        </a>
     </div>
 
     <div id="content">

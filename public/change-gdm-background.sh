@@ -99,7 +99,7 @@ if [[ $(file --mime-type -b "$1") == image/*g ]]; then
     if [ "$?" -eq 0 ]; then
     # Solve a permission change issue (thanks to @huepf from github).
 	chmod 644 "$gdm3Resource"
-	echo 'GDM background sucessfuly changed.'
+	echo 'GDM background successfully changed.'
 #	echo 'Do you want to restart gdm to apply change?'
 #	read -p '(y - yes, other keys - no): ' -n 1
 #	if [ "$REPLY" == y ]; then

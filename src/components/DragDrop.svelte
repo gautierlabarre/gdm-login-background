@@ -11,18 +11,18 @@
 
     function addedfile(file) {
         const filename = file.path.replace(/(\s+)/g, '\\$1');
-        let ext
+        let ext;
+
         if (file.type === 'image/png') {
             ext = '.png';
         }
 
-        console.log(file.type)
         if (file.type === 'image/jpg' || file.type === 'image/jpeg' ) {
             ext = '.jpg';
         }
 
         if(ext === undefined) {
-            console.log('rejected file')
+            console.log('rejected file');
         } else {
             addImageToAppFolder(filename, ext);
         }
@@ -34,7 +34,7 @@
 
         exec(mvToProperFolder + ' && cp ' + filename + ' ./' + date + ext, (error) => {
             if (error) console.log(error.stack);
-            dispatch('refresh')
+            dispatch('refresh');
         });
     }
 </script>
@@ -69,7 +69,6 @@
         border-top: 0;
         border-radius: 0;
         box-shadow: 1px 5px 5px #7f7f7f;
-        /*border-style: dotted;*/
         background: #dddddd !important;
     }
 

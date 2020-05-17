@@ -1,5 +1,6 @@
 <script>
     export let confirmRestart;
+
     const sudo = require('sudo-prompt');
     import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from 'sveltestrap';
 
@@ -13,8 +14,8 @@
     }
 
     const toggle = () => (confirmRestart = !confirmRestart);
-
 </script>
+
 <Modal isOpen={confirmRestart} {toggle}>
     <ModalHeader {toggle}>GDM background changed</ModalHeader>
     <ModalBody>

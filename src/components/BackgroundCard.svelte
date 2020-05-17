@@ -2,6 +2,7 @@
     export let home;
     export let appFolder;
     export let image;
+
     const fs = require("fs");
     const dispatch = createEventDispatcher();
 
@@ -10,6 +11,7 @@
     import {faTrash} from '@fortawesome/free-solid-svg-icons/faTrash'
     import {faCheckCircle} from '@fortawesome/free-solid-svg-icons/faCheckCircle'
     import {faCheck} from '@fortawesome/free-solid-svg-icons/faCheck'
+
     const trashIcon = faTrash;
     const checkCircleIcon = faCheckCircle;
     const checkIcon = faCheck;
@@ -42,11 +44,11 @@
 
     <div class="card-body">
         {#if !checkSelected(image)}
-            <b class="clickable text-primary pull-left" on:click={executeBackgroundChange(image)} title="Sélectionner">
+            <b class="clickable text-primary pull-left" on:click={executeBackgroundChange(image)} title="Select this image">
                 <Icon class="clickable" icon="{checkIcon}"/>
             </b>
         {/if}
-        <b class="text-danger clickable pull-right" on:click={deleteImage(image)} title="Supprimer">
+        <b class="text-danger clickable pull-right" on:click={deleteImage(image)} title="Delete">
             <Icon class="clickable" icon="{trashIcon}"/>
         </b>
     </div>

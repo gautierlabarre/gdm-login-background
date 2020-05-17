@@ -1,5 +1,5 @@
 <script>
-    import {Button, Spinner, Alert} from 'sveltestrap';
+    import {Spinner, Alert} from 'sveltestrap';
     import {onMount} from 'svelte';
 
     const sudo = require('sudo-prompt');

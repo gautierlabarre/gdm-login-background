@@ -15,10 +15,16 @@
             confirmRestart = true;
         });
 
-        // Launch sudo script
-        // Empty file background.
+        emptyBackgroundFile();
+    }
+
+    function emptyBackgroundFile() {
+        fs.writeFile(home + appFolder + 'selectedBackground', '', (err) => {
+            if (err) throw err;
+        });
     }
 </script>
+
 <ConfirmRestart confirmRestart={confirmRestart}/>
 
 <div class="jumbotron">

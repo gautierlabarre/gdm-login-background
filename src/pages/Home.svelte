@@ -12,11 +12,9 @@
     import CheckDependencies from '../components/CheckDependencies.svelte';
     import {Alert} from 'sveltestrap';
 
-    let visible = true;
     let visibleAlert = false;
-    let backgroundList = [];
     let confirmRestart = false;
-
+    let backgroundList = [];
     const script = __dirname + '/change-gdm-background.sh';
     const appFolderName = '.gdm-background';
     const appFolder = '/' + appFolderName + '/';
@@ -51,7 +49,7 @@
 
         const image = event.detail.image;
         const imagePath = home + appFolder + image;
-        const scriptLocation = home + appFolder + 'script.sh'
+        const scriptLocation = home + appFolder + 'script.sh';
         const givePermissions = 'chmod +x ' + scriptLocation;
         const options = {name: 'GDM Login background'};
 
@@ -59,7 +57,7 @@
             if (error) throw error;
             console.log('stdout: ' + stdout);
 
-            if (stdout.trim() === 'GDM background sucessfuly changed.') {
+            if (stdout.trim() === 'GDM background successfully changed.') {
                 createSelectedBackgroundFile(image.trim());
                 getBackgroundList();
                 confirmRestart = true;
@@ -81,35 +79,35 @@
 
 <div class="container-fluid">
     <Dragdrop on:refresh={getBackgroundList}/>
+
     <div id="listItems">
+        <CheckDependencies/>
 
+        <Alert color="danger" isOpen={visibleAlert} toggle={() => (visibleAlert = false)}>
+            There was an error. The background has not been changed.
+        </Alert>
 
-    <CheckDependencies/>
-
-    <Alert color="danger" isOpen={visibleAlert} toggle={() => (visibleAlert = false)}>
-        There was an error. The background has not been changed.
-    </Alert>
-
-    <div class="row">
-        {#if backgroundList.length === 0 }
-            <p class="w100 m-20 text-center">You have no background image yet.</p>
-        {/if}
-        {#each backgroundList as image}
-            <div class="col-md-4 col-sm-12">
-                <BackgroundCard
-                        {home} {appFolder} {image}
-                        on:delete={getBackgroundList}
-                        on:selected={executeBackgroundChange}/>
-            </div>
-        {/each}
-    </div>
-
+        <div class="row">
+            {#if backgroundList.length === 0 }
+                <p class="w100 m-20 text-center">You have no background image yet.</p>
+            {/if}
+            {#each backgroundList as image}
+                <div class="col-md-4 col-sm-12">
+                    <BackgroundCard
+                            {home} {appFolder} {image}
+                            on:delete={getBackgroundList}
+                            on:selected={executeBackgroundChange}/>
+                </div>
+            {/each}
+        </div>
     </div>
 </div>
+
 <style>
     .w100 {
         width: 100%;
     }
+
     #listItems {
         padding: 10px;
         height: 600px;
