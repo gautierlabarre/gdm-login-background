@@ -1,5 +1,11 @@
 # GDM Login Background
 
+<div align="center">
+
+[Download here](https://labarre.me/gdm-background-login/gdm-login-background.AppImage)
+
+</div>
+
 ## Aim
 Simple project to change background on GDM Login screen for Ubuntu 20.04 and above.
 
