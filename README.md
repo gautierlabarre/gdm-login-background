@@ -4,8 +4,8 @@
 
 [Download appImage](https://labarre.me/gdm-background-login/gdm-login-background.AppImage)
 
-<img src="screenshots/select-background.png" width="200"> >>
-<img src="screenshots/see-result.png" width="200">
+<img src="screenshots/select-background.png" width="400"> >>
+<img src="screenshots/see-result.png" width="400">
 </div>
 
 ## Aim
