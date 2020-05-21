@@ -2,8 +2,12 @@
 
 <div align="center">
 
-[Download here](https://labarre.me/gdm-background-login/gdm-login-background.AppImage)
+[Download appImage](https://labarre.me/gdm-background-login/gdm-login-background.AppImage)
+or 
+[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/gdm-login-background)
 
+<img src="screenshots/select-background.png" width="200">
+<img src="screenshots/see-result.png" width="200">
 </div>
 
 ## Aim
@@ -13,6 +17,8 @@ This action requires root password because the login background is the same for 
 So choose an Image carefully, but if you change your mind, this app allows you to RESET to the default background login.
 
 ## How to
+
+You can either : use the [snap version](https://snapcraft.io/gdm-login-background), or the appImage with those detailed instructions : 
 1. Download the appImage [here](https://labarre.me/gdm-background-login/gdm-login-background.AppImage)
 2. Move the appImage to the folder you want (if you delete the appImage file the software will be "uninstalled")
 3. Right click on appImage, click on property then permission tab
