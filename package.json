@@ -14,6 +14,7 @@
     "pure-electron-dev": "NODE_ENV=development electron .",
     "generate-app": "run-s build build-linux",
     "generate-appimage": "run-s build build-appimage",
+    "build-linux": "electron-builder --dir --linux appimage snap --config electron-builder.yml",
     "build-appimage": "electron-builder --dir --linux appimage  --config electron-builder.yml",
     "build-snap": "electron-builder --dir --linux  snap --config electron-builder.yml"
   },
