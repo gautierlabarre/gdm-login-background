@@ -5,7 +5,7 @@
     const { shell } = require('electron')
 
     function showWebsite() {
-        shell.openExternal('https://labarre.me');
+        shell.openExternal('https://github.com/gautierlabarre/gdm-login-background');
     }
 </script>
 

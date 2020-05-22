@@ -1,12 +1,6 @@
-appId: "my.app.id"
+appId: "glab.gdm-login-background"
+productName: GDM-login-background-test
+artifactName: ${productName}-${version}.${ext}
 
 # Package app code into a asar archive. Set to false to debug issues.
 asar: true
-
-linux:
-  icon: public/icons
-  category: Utility
-  executableName: "gdm-login-background"
-  target:
-    - AppImage
-    - deb

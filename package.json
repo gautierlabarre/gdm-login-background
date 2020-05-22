@@ -2,7 +2,7 @@
   "name": "gdm-login-background",
   "author": "Gautier LABARRE",
   "description": "Simple app to change your gdm login background.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./src/electron.js",
   "scripts": {
     "build": "rollup -c",
@@ -13,7 +13,9 @@
     "electron-dev": "run-p dev pure-electron-dev",
     "pure-electron-dev": "NODE_ENV=development electron .",
     "generate-app": "run-s build build-linux",
-    "build-linux": "electron-builder --dir --linux appimage snap --config electron-builder.yml"
+    "generate-appimage": "run-s build build-appimage",
+    "build-appimage": "electron-builder --dir --linux appimage  --config electron-builder.yml",
+    "build-snap": "electron-builder --dir --linux  snap --config electron-builder.yml"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "11.0.2",
