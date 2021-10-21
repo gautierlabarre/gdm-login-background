@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[Download appImage](https://labarre.me/gdm-background-login/gdm-login-background.AppImage)
+[Download appImage](https://labarre.me/gdm-background-login/gdm-login-background-1.0.1.AppImage)
 
 <img src="screenshots/select-background.png" width="400"> >>
 <img src="screenshots/see-result.png" width="400">
