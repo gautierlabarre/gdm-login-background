@@ -56,11 +56,11 @@
         sudo.exec(givePermissions + ' && ' + scriptLocation + ' ' + imagePath, options, (error, stdout) => {
             if (error) throw error;
             console.log('stdout: ' + stdout);
-
             if (stdout.trim() === 'GDM background successfully changed.') {
                 createSelectedBackgroundFile(image.trim());
                 getBackgroundList();
                 confirmRestart = true;
+                console.log('confirmRestart :>> ', confirmRestart);
             } else {
                 visibleAlert = true;
             }

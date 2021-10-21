@@ -2,7 +2,7 @@
   "name": "gdm-login-background",
   "author": "Gautier LABARRE",
   "description": "Simple app to change your gdm login background.",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "main": "./src/electron.js",
   "scripts": {
     "build": "rollup -c",
