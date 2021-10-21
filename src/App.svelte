@@ -30,7 +30,6 @@
         <a href="/reset" use:link >
             <button class="btn btn-dark pull-right" use:active={{path: '/reset', className: 'btn-selected'}}  title="Reset default background"> <!--on:click={reset}-->
                 <FontAwesomeIcon icon={faEraser} /> 
-            <!-- <Icon class="clickable" icon="{eraserIcon}"/> -->
         </button>
         </a>
 
