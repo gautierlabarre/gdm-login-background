@@ -18,7 +18,8 @@ function createWindow() {
         autoHideMenuBar: true,
         webPreferences: {
             nodeIntegration: true,
-        }
+            enableRemoteModule: true,
+           },
     });
 
     mainWindow.loadURL(`file://${path.join(__dirname, '../public/index.html')}`).then();

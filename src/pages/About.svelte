@@ -11,6 +11,7 @@
 
 <p class="mt-56">Gnome Login background v{appVersion}</p>
 <p>Creation date : May 2020 by {author}</p>
+<p>Last update date : Octobre 2021</p>
 <p>Website : <a href="#/about" on:click={showWebsite}>GDM Login Background</a></p>
 
 <style>
