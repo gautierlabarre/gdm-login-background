@@ -1,18 +1,15 @@
 <script>
-    import Icon from 'fa-svelte';
-    import {faEraser} from '@fortawesome/free-solid-svg-icons/faEraser'
-    import {faInfo} from '@fortawesome/free-solid-svg-icons/faInfo'
-    import {faImage} from '@fortawesome/free-solid-svg-icons/faImage'
-    import {link} from 'svelte-spa-router';
-    import active from 'svelte-spa-router/active'
-    import Home from './pages/Home.svelte'
-    import About from './pages/About.svelte'
-    import Reset from './pages/Reset.svelte'
-    import Router from 'svelte-spa-router'
+    import { faInfo } from '@fortawesome/free-solid-svg-icons';
+    import { faEraser } from '@fortawesome/free-solid-svg-icons';
+    import { faImage } from '@fortawesome/free-solid-svg-icons';
+    import { FontAwesomeIcon } from 'fontawesome-svelte';
+    import Router,{ link } from 'svelte-spa-router';
+    import active from 'svelte-spa-router/active';
+    import About from './pages/About.svelte';
+    import Home from './pages/Home.svelte';
+    import Reset from './pages/Reset.svelte';
 
-    const infoIcon = faInfo;
-    const eraserIcon = faEraser;
-    const imageIcon = faImage;
+
     const routes = {
         '/': Home,
         '/reset': Reset,
@@ -26,19 +23,20 @@
 
         <a href="/" use:link >
             <button class="btn btn-dark pull-right" use:active={{path: '/', className: 'btn-selected'}}  title="Reset default background"> <!--on:click={reset}-->
-                <Icon class="clickable" icon="{imageIcon}"/>
+                <FontAwesomeIcon icon={faImage} />
             </button>
         </a>
 
         <a href="/reset" use:link >
             <button class="btn btn-dark pull-right" use:active={{path: '/reset', className: 'btn-selected'}}  title="Reset default background"> <!--on:click={reset}-->
-            <Icon class="clickable" icon="{eraserIcon}"/>
+                <FontAwesomeIcon icon={faEraser} /> 
+            <!-- <Icon class="clickable" icon="{eraserIcon}"/> -->
         </button>
         </a>
 
         <a href="/about" use:link>
             <button class="btn btn-dark pull-right" use:active={{path: '/about', className: 'btn-selected'}} title="Information">
-            <Icon class="clickable" icon="{infoIcon}"/>
+            <FontAwesomeIcon icon={faInfo} /> 
         </button>
         </a>
     </div>
