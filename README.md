@@ -11,7 +11,7 @@
 ## Aim
 Simple project to change background on GDM Login screen for Ubuntu 21.10 and above.
 It's should work on pop_os and derivates. As long as it's gnome 40 (and above ? to be tested)
-IF you're using gnome 38 (ubuntu 20.04 until 21.04 : select this version [ADD LINK])
+IF you're using gnome 38 (ubuntu 20.04 until 21.04 : select [this version](https://github.com/gautierlabarre/gdm-login-background/tree/gnome-38)
 
 This action requires root password because the login background is the same for all users. 
 So choose an Image carefully, but if you change your mind, this app allows you to RESET to the default background login.
